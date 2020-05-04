@@ -1,1 +1,1 @@
-# Yahtzee - Programming the next step
+# Yahtzee
