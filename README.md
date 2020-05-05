@@ -1,8 +1,9 @@
 
 <h1>Yahtzee</h1>
 <h2>Introduction</h2>
-*Yahtzee* is a chance and strategic dice game. In this game participants can score points by rolling five dice. The players of the game have to decide whether they want to combine the dice into a score, or whether they roll the dice again. The dice can be rolled up to three times in one turn. The scoring categories (see: [Upper Section Categories](https://en.wikipedia.org/wiki/Yahtzee#Upper_section) and [Lower Section Categories](https://en.wikipedia.org/wiki/Yahtzee#Lower_section)) have varying point values, some of which are fixed and others have to be calculated. The winner of the game is the one with most points.
 
+*Yahtzee* is a chance and strategic dice game. In this game participants can score points by rolling five dice. The players of the game have to decide whether they want to combine the dice into a score, or whether they roll the dice again. The dice can be rolled up to three times in one turn. The scoring categories (see: [Upper Section Categories](https://en.wikipedia.org/wiki/Yahtzee#Upper_section) and [Lower Section Categories](https://en.wikipedia.org/wiki/Yahtzee#Lower_section)) have varying point values, some of which are fixed and others have to be calculated. The winner of the game is the one with most points.
+<br/>
 According to [MoSCoW](https://en.wikipedia.org/wiki/MoSCoW_method) method: 
 
 *Must have* – short on time| *Should have* – goal  | *Could have* – extra time  | *Won’t have* n/a  
@@ -18,7 +19,7 @@ An instruction at the start of the game|||
 
 <h2>Implementation</h2>
 I will start with making the must haves. I am using Python for this project, because I think it is more flexible to use when making a game.
-
+<br/><br/>
 The packages I will definitely use:
 
  - Numpy: for the basic array operations   
