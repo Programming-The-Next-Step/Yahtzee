@@ -35,6 +35,7 @@ The packages I will definitely use:
  - Function in which player can select the dice that should be rolled again and which      should be left on the ‘table’.
  - Function to roll again with selected dice, if applicable
  - Function to assign result to Category
+ - Function to check whether category is possible
  - Function to calculate scores in ScoreCard
  - Function to present updated ScoreCard
  - Function to clean all results and start new turn (switch turn for more players)
