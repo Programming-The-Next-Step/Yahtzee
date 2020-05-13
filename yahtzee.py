@@ -1,7 +1,10 @@
 #import packages
 from random import randint
 import numpy as np
-import pygame as pg
+import pandas as pd
+
+#instruction
+
 
  
  #define the Dice class
@@ -24,7 +27,10 @@ class Aces:
         unique, counts= np.unique(current_throw, return_counts = True)
         self.possible = any(unique == 1)
     def score(self, current_throw):
-        self.points = np.sum([x for x in current_throw if x == 1])
+        if self.possible:
+            self.points = np.sum([x for x in current_throw if x == 1])
+        else:
+            self.points = 0
         
 class Twos:
     def __init__(self):
@@ -36,7 +42,10 @@ class Twos:
         unique, counts= np.unique(current_throw, return_counts = True)
         self.possible = any(unique == 2)
     def score(self, current_throw):
-        self.points = np.sum([x for x in current_throw if x == 2])
+        if self.possible:
+            self.points = np.sum([x for x in current_throw if x == 2])
+        else:
+            self.points = 0
 
 class Threes:
     def __init__(self):
@@ -48,8 +57,10 @@ class Threes:
         unique, counts= np.unique(current_throw, return_counts = True)
         self.possible = any(unique == 3)
     def score(self, current_throw):
-        self.points = np.sum([x for x in current_throw if x == 3])
-        
+        if self.possible:
+            self.points = np.sum([x for x in current_throw if x == 3])
+        else:
+            self.points = 0
 class Fours:
     def __init__(self):
         self.name = 'Fours'
@@ -60,8 +71,10 @@ class Fours:
         unique, counts= np.unique(current_throw, return_counts = True)
         self.possible = any(unique == 4)
     def score(self, current_throw):
-        self.points = np.sum([x for x in current_throw if x == 4])
-        
+        if self.possible:
+            self.points = np.sum([x for x in current_throw if x == 4])
+        else:
+           self.points = 0
 class Fives:
     def __init__(self):
         self.name = 'Fives'
@@ -72,7 +85,10 @@ class Fives:
         unique, counts= np.unique(current_throw, return_counts = True)
         self.possible = any(unique == 5)
     def score(self, current_throw):
-        self.points = np.sum([x for x in current_throw if x == 5])
+        if self.possible:
+            self.points = np.sum([x for x in current_throw if x == 5])
+        else:
+            self.points = 0
         
 class Sixes:
     def __init__(self):
@@ -84,7 +100,10 @@ class Sixes:
         unique, counts= np.unique(current_throw, return_counts = True)
         self.possible = any(unique == 6)
     def score(self, current_throw):
-        self.points = np.sum([x for x in current_throw if x == 6])
+        if self.possible:
+            self.points = np.sum([x for x in current_throw if x == 6])
+        else:
+            self.points = 0
         
 class Three_of_kind:
     def __init__(self):
@@ -96,8 +115,11 @@ class Three_of_kind:
         unique, counts= np.unique(current_throw, return_counts = True)
         self.possible = any(counts >= 3)
     def score(self, current_throw):
-        self.points = np.sum(current_throw)
-            
+        if self.possible:
+            self.points = np.sum(current_throw)
+        else:
+            self.points = 0
+
 class Four_of_kind:
     def __init__(self):
         self.name = 'Four of a kind'
@@ -108,7 +130,11 @@ class Four_of_kind:
         unique, counts = np.unique(current_throw, return_counts = True)
         self.possible = any(counts >= 4)
     def score(self, current_throw):
-        self.points = np.sum(current_throw)      
+        if self.possible:
+            self.points = np.sum(current_throw)
+        else:
+            self.points = 0
+
 
 class Full_house:
     def __init__(self):
@@ -120,7 +146,10 @@ class Full_house:
         unique, counts = np.unique(current_throw, return_counts = True)
         self.possible = any(counts == 3) and any(counts == 2) and len(unique == 2)
     def score(self, current_throw):
-        self.points = 25  
+        if self.possible:
+            self.points = 25  
+        else:
+            self.points = 0
 
 class Small_straight:
     def __init__(self):
@@ -132,8 +161,11 @@ class Small_straight:
         s = ''.join(map(str, np.unique(np.sort(current_throw))))
         self.possible = '1234' in s or '2345' in s or '3456' in s
     def score(self, current_throw):
-        self.points = 30  
-    
+        if self.possible:
+            self.points = 30  
+        else:
+            self.points = 0
+
 class Large_straight:
     def __init__(self):
         self.name = 'Large Straight'
@@ -144,7 +176,11 @@ class Large_straight:
         s = ''.join(map(str, np.sort(current_throw)))
         self.possible = s in ['12345', '23456']
     def score(self, current_throw):
-        self.points = 40 
+        if self.possible:
+            self.points = 40        
+        else:
+            self.points = 0
+
 
 class Yahtzee:
     def __init__(self):
@@ -156,7 +192,10 @@ class Yahtzee:
         unique, counts = np.unique(current_throw, return_counts = True)
         self.possible = any(counts == 5)
     def score(self, current_throw):
-        self.points = 50
+        if self.possible:
+            self.points = 50
+        else:
+            self.points = 0
 
 class Chance:
     def __init__(self):
@@ -167,17 +206,27 @@ class Chance:
     def is_possible(self, current_throw):
         self.possible = True
     def score(self, current_throw):
-        self.points = np.sum(current_throw)
-        
+        if self.possible:
+            self.points = np.sum(current_throw)
+        else:
+            self.points = 0
 
 class Scorecard:
     def __init__(self):
         self.categories = [Aces(), Twos(), Threes(), Fours(), Fives(), Sixes(), Three_of_kind(), Four_of_kind(), Full_house(), Small_straight(), Large_straight(), Yahtzee(), Chance()]
-        self.scores = np.zeros([len(self.categories)])
+        self.scores = np.zeros([len(self.categories)], '<U3')
+        self.possiblescores = np.zeros([len(self.categories)], '<U3')
+        self.categoryname = []
+        self.uppersection = 0
+        self.lowersection = 0
+        self.bonus = 0
+        self.total = 0
+        for i in range(0, len(self.categories)):
+            self.categoryname.append(scorecard.categories[i].name)
 
 
 scorecard = Scorecard()
-for turn in range(0, 14):
+for turn in range(0, 13):
     
     # present throw, ask input player, roll again
     num_throws = 3
@@ -197,28 +246,44 @@ for turn in range(0, 14):
             
         print('You rolled: ', player1.current_throw)
     
-    
+ 
     for i, category in enumerate(scorecard.categories):
         category.is_possible(player1.current_throw)
         category.score(player1.current_throw)
         
-        if category.possible and not category.filled:
+        if not category.filled:
             # keep track of possible records
-            print(i, category.name, 'points: ', category.points)
+            scorecard.possiblescores[i] = str(category.points)
+        else:
+            scorecard.possiblescores[i] = ''
     
+    
+    scores = {'Categories': scorecard.categoryname, 'Scores': scorecard.scores, 'Possible scores': scorecard.possiblescores}
+    
+    df_scorecard = pd.DataFrame(data = scores, index = range(1, 14))
+    print(df_scorecard, "\n")  
+
     
     while True:     
-        answer = int(input('Which Category do you like to fill in?'))
+        answer = int(input('Which Category do you like to fill in?')) - 1
         
         if not scorecard.categories[answer].filled:
             scorecard.categories[answer].filled = True
             scorecard.scores[answer] = scorecard.categories[answer].points
             break
         else:
-            print('Already filled, please try again...')
-    
-    
-    
-    for i, category in enumerate(scorecard.categories):
-        print(category.filled)
-    print(scorecard.scores)
+            print('Already filled, please try again...') 
+
+            
+scorecard.uppersection = np.sum(scorecard.scores[0:6].astype(int))
+if scorecard.uppersection >= 63:
+    scorecard.bonus = 35
+scorecard.lowersection = np.sum(scorecard.scores[6:13].astype(int))
+scorecard.total = scorecard.uppersection + scorecard.bonus + scorecard.lowersection
+
+print('You scored:'+ '\n' + 'upper section: ' + str(scorecard.uppersection) + '\n' +' + ', 'bonus score: ' + str(scorecard.bonus)  + '\n' + ' + ' + 'lower section : ' + str(scorecard.lowersection) + '\n' + '----------------------' + '\n' + 'Total: ' + str(scorecard.total))
+
+
+
+   
+
