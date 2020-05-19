@@ -1,0 +1,34 @@
+Welcome player. Ready for a game of Yahtzee?
+
+In this game the objective is to roll 5 dice to get the highest score after 13 rounds.
+Each turn consists of a maximum of three rolls. In the first roll, the player rolls all the 5 dice.
+If the player chooses to roll a second and, if desired, a third time, he may pick up any or all the dice and roll again.
+Based on the outcome of the dice a score can be assigned to either a category, or when not possible enter a zero in the category of choice. 
+In one turn:
+Your first roll: you roll all the 5 dice. If you get a combination that can be assigned to a category you want you can mark the scorecard right away. Otherwise, you continue with the second roll.
+Your second roll: Set aside the dice you would like to keep and roll the dice you want to change. It is possible to roll all the dice again. 
+Assign the outcome to a category and mark the scorecard or choose to roll one last time.
+Third and final roll:
+If you still haven't a category, or just want to maximize your score: Roll some or all of your dice.
+You must enter a score at the end of this roll, whether or not you like your dice.
+If your roll doesn't suit any of your empty boxes, you have to enter a zero somewhere. BUT scoring even a single die value is better than a zero.
+
+Categories:
+There are 13 scoring boxes on your scorecard. On each completed turn, you must score in one of the 13 boxes. The boxes may be filled in any order, according to your best judgment. The scorecard has an upper and lower section.
+
+Upper section
+Contains six boxes labelled 1 to 6 (aces, twos, threes, fours, fives, and sixes).
+When you choose to score in one of the upper section categories, you count and add the dice with the same number and enter the total of these dice in the appropriate box.
+So, for example, when you rolled three twos and one four and one five, you could either fill in 5 in the fives category a 4 in the fours category or a 6 (2 x 3). You can only fill in a category once. So, you could also fill in the aces with zero.
+If the upper section sums up to 63 or more points, you will get a bonus of 35 points to the total score.
+
+Lower section
+•	Three of a kind: this category may only be filled if the dice show at least three of the same numbers (5, 5, 5, 1, 3). The score for this category is the total of the dice
+•	Four of a kind: score of the total of all dice, only when you have 4 dices with the same number
+•	Full house: you need to have 3 dice with the same number and 2 dice with the same number (for example: 2, 2, 3, 3, 3 or 1, 1, 4, 4, 4). A full house is worth 25 points
+•	Small Straight: any sequence of four numbers. Note it can also be five consecutive numbers. A small straight will give you 30 points.
+•	Large Straight: a sequence of five numbers, for example: 1,2,3,4,5 or 2,3,4,5,6. This is valued 40 points
+•	Chance: This offers a player the opportunity to score on any turn where he does not choose to score in any of the other open boxes. Mark score by totalling number of points on all dice.
+•	Yahtzee: five of a kind. Yahtzee is the highest possible score (50 points).
+The player with the highest score wins!
+
