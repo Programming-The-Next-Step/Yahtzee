@@ -1,57 +1,6 @@
 #import packages
 import numpy as np
-import pygame as pg
-from win32api import GetSystemMetrics 
 import classes as c
-
-
-#set Display
-pg.init()
-
-display_width = GetSystemMetrics((0))
-display_height = GetSystemMetrics((1))
-
-#set colours
-black = (0, 0, 0)
-white = (255, 255, 255)
-
-#initialize the display
-gameDisplay = pg.display.set_mode((display_width,display_height))
-
-#instruction
-pg.display.set_caption('Yahtzee!')
-font = pg.font.Font('freesansbold.ttf', 8) 
-instruction = open('.\Instruction\Instruction_text.txt', 'r').read()
-text = font.render(instruction, True, black)
-textRect = text.get_rect()
-
-while True : 
-  
-    # completely fill the surface object 
-    # with white color 
-    gameDisplay.fill(white) 
-  
-    # copying the text surface object 
-    # to the display surface object  
-    # at the center coordinate. 
-    gameDisplay.blit(text, textRect)
-    
-    for event in pg.event.get() : 
-  
-        # if event object type is QUIT 
-        # then quitting the pygame 
-        # and program both. 
-        if event.type == pg.QUIT : 
-  
-            # deactivates the pygame library 
-            pg.quit() 
-  
-            # quit the program. 
-            quit() 
-  
-        # Draws the surface object to the screen.   
-        pg.display.update()  
-   
 
 
 def game():
@@ -107,4 +56,5 @@ def game():
     
     for player in range(0, num_players):
         scorecards[player].print_final_result()
-game()
+        
+        
