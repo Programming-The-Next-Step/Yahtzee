@@ -18,15 +18,15 @@ class TEST:
         self.dice_filenames = glob.glob(r'C:\Users\danar\GitHub\Yahtzee\Images\dice*_white.png')
         self.dice_images = self.load_images(self.dice_filenames)            
 
-        self.dice_frame = tk.Frame(master, bg = 'white', height = 200) 
-        self.choice_frame = tk.Frame(master, bg = 'white', height = 100)
+        self.dice_frame = tk.Frame(master, height = 200) 
+        self.choice_frame = tk.Frame(master, height = 100)
         self.scorecard_frame = tk.Frame(master,  height = 300)
         self.us_frame = tk.Frame(self.scorecard_frame)
-        self.us_left_frame = tk.Frame(self.us_frame, bg = 'darkgreen')
-        self.us_right_frame = tk.Frame(self.us_frame, bg = 'green')
+        self.us_left_frame = tk.Frame(self.us_frame)
+        self.us_right_frame = tk.Frame(self.us_frame)
         self.ls_frame = tk.Frame(self.scorecard_frame)
-        self.ls_left_frame = tk.Frame(self.ls_frame, bg = 'darkgreen')
-        self.ls_right_frame = tk.Frame(self.ls_frame, bg = 'green')
+        self.ls_left_frame = tk.Frame(self.ls_frame)
+        self.ls_right_frame = tk.Frame(self.ls_frame)
         
         self.dice_frame.pack(side = tk.TOP, fill = tk.BOTH)
         self.scorecard_frame.pack(side = tk.TOP, fill = tk.BOTH, expand = True) 
@@ -185,7 +185,7 @@ class TEST:
 
 root = tk.Tk()
 root.geometry('600x600')
-root.configure(background = 'darkgreen')
+root.configure(background = BACKGROUND_COLOUR_1)
 app = TEST(root)
 root.mainloop()
 
