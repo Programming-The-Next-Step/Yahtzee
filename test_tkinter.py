@@ -10,7 +10,31 @@ CATEGORY_FILLED_COLOUR = 'PaleGreen3'
 BACKGROUND_COLOUR_1 = 'darkgreen'
 BACKGROUND_COLOUR_2 = 'green'
 
-class TEST:
+class GUI_game:
+    
+    """
+    A class used to create the GUI of the Yahtzee game. 
+    
+    ...
+    
+    Attributes
+    ----------
+    dice_filenames : list of str
+        A list of the path directories of the dice images
+    dice_images: list
+        A 
+    *_frame: tkinter.Frame
+        All the attributes that end with _frame are defined to make different frames in the window.
+    empty: bool
+        Keeps track whether the category is empty
+    
+        
+    Methods
+    ----------
+    score(current_throw)
+        Assigns a score to each category still to be filled in and possible
+        based on the current throw.
+    """
     def __init__(self, master):
         super().__init__()
         self.master = master
@@ -84,9 +108,14 @@ class TEST:
         self.keep_button.pack(side = tk.LEFT, fill = tk.BOTH, expand = True)
         self.turn_button = tk.Button(self.choice_frame, text = "Next turn!", state = 'disabled', command = lambda: self.next_turn())
         self.turn_button.pack(side = tk.LEFT, fill = tk.BOTH, expand = True)
+        self.instruction_button = tk.Button(self.choice_frame, text = '?', width = 5, command = lambda: self.instruction())
+        self.instruction_button.pack(side = tk.LEFT)
+      
+        
         
         self.update_buttontext()
-      
+        
+
     def load_images(self, filenames):
         images = []
         for i, filename in enumerate(filenames):
@@ -180,13 +209,24 @@ class TEST:
             root.destroy()
         else:
             self.turn_button.config(text = 'End game')
-            
+    
+    def instruction(self):
+        instruction_text = open(r'C:\Users\danar\GitHub\Yahtzee\Instruction\Instruction_text.txt')
+        print_instruction_text = instruction_text.read()
+        instruction = tk.Toplevel(root)
+        instruction.geometry('1300x530')
+        instruction.title('Instruction')
+        instruction_label = tk.Label(instruction, text = print_instruction_text)
+        instruction_label.pack()
+        
+        
                 
 
 root = tk.Tk()
 root.geometry('600x600')
+root.title('Yahtzee!')
 root.configure(background = BACKGROUND_COLOUR_1)
-app = TEST(root)
+app = GUI_game(root)
 root.mainloop()
 
 '''

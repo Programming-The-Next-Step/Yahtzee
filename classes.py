@@ -63,6 +63,7 @@ class Category():
         self.number = number
         self.possible_points = 0
         self.empty = True
+        
     def score(self, current_throw):                
         if self.empty:
             unique, counts = np.unique(current_throw, return_counts = True)
@@ -171,6 +172,7 @@ class Scorecard:
         self.lowersection = 0
         self.bonus = 0
         self.total = 0
+        
     def print_scorecard(self, show_possible_scores):
         if show_possible_scores:
             scores = {'Categories': self.categoryname, 'Scores': self.scores, 'Possible scores': self.possiblescores}   
@@ -178,11 +180,13 @@ class Scorecard:
             scores = {'Categories': self.categoryname, 'Scores': self.scores}              
         df_scorecard = pd.DataFrame(data = scores, index = range(1, 14))
         print(df_scorecard, "\n")
+        
     def update_possible_scores(self, current_throw):
         for i, category in enumerate(self.categories):
             category.score(current_throw)
             # keep track of possible records
             self.possiblescores[i] = str(category.possible_points) if category.empty else '' 
+            
     def update_category(self, index):
         self.categories[index].empty = False
         self.scores[index] = self.categories[index].possible_points
@@ -190,11 +194,11 @@ class Scorecard:
         self.lowersection += self.categories[index].possible_points if index >= 6 else 0
         self.bonus = 35 if self.uppersection >= 63 else 0        
         self.total = self.lowersection + self.uppersection + self.bonus       
+        
     def print_final_result(self):
         self.uppersection = np.sum(self.scores[0:6].astype(int))
         if self.uppersection >= 63:
              self.bonus = 35
         self.lowersection = np.sum(self.scores[6:13].astype(int))
         self.total = self.uppersection + self.bonus + self.lowersection
-         
         print('You scored:'+ '\n' + 'upper section: ' + str(self.uppersection) + '\n' +' + ', 'bonus score: ' + str(self.bonus)  + '\n' + ' + ' + 'lower section : ' + str(self.lowersection) + '\n' + '----------------------' + '\n' + 'Total: ' + str(self.total))
