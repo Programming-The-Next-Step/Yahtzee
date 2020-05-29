@@ -1,6 +1,6 @@
 #tkinter
 import tkinter as tk 
-import classes as c
+import dr_yahtzee.classes as c
 import glob as glob
 import os
 
@@ -113,9 +113,9 @@ class GUI_game:
         
         #creates all the frames (see structure of frames)
         self.dice_frame = tk.Frame(master) 
-        self.choice_frame = tk.Frame(master)
-        self.scorecard_frame = tk.Frame(master)
         self.player_name_frame = tk.Frame(master)
+        self.scorecard_frame = tk.Frame(master)
+        self.choice_frame = tk.Frame(master)
         self.us_frame = tk.Frame(self.scorecard_frame)
         self.us_left_frame = tk.Frame(self.us_frame)
         self.us_right_frame = tk.Frame(self.us_frame)
@@ -211,7 +211,6 @@ class GUI_game:
         
         self.init_player_names()
         #self.update_button_images() # updates the buttons/images
-        
 
     def load_images(self, filenames):
         """
@@ -236,9 +235,11 @@ class GUI_game:
     
     def update_button_images(self):
         """
-        Updates the dice imges
+        Updates the dice images
         """
         for i, button in enumerate(self.dice_buttons):
+            #For example, dice.current_throw[3] equals 2 then 2 minus 1 because 
+            #the image of dice with 2 eyes is in dice_images[1] (one index lower)
             button.config(image=self.dice_images[self.dice.current_throw[i] - 1])            
             button.config(text=str(self.dice.current_throw[i]))
            
@@ -355,7 +356,7 @@ class GUI_game:
             self.next_player()
         #At the end of all the turns, the player can end the game by clicking the turn_button
         elif self.turn_button.cget('text') == 'End game':
-            root.destroy()
+            self.master.destroy()
         else:
             self.turn_button.config(text = 'End game')
     
@@ -365,7 +366,7 @@ class GUI_game:
         """
         instruction_text = open(INSTRUCTION_DIRECTORY + r'\Instruction_text.txt')
         print_instruction_text = instruction_text.read()
-        instruction = tk.Toplevel(root)
+        instruction = tk.Toplevel(self.master)
         instruction.geometry('1300x530')
         instruction.title('Instruction')
         instruction_label = tk.Label(instruction, text = print_instruction_text)
@@ -375,7 +376,7 @@ class GUI_game:
         """
         Function to initialize the players such that the players can fill in their names.
         """
-        self.players_window = tk.Toplevel(root)
+        self.players_window = tk.Toplevel(self.master)
         self.players_window.geometry('300x300')
         self.players_window.title('Enter player names')
         #making sure the player window is presented on the foreground.
@@ -427,23 +428,10 @@ class GUI_game:
         self.player_name_label.config(text = 'Scorecard of ' + self.currentScorecard.name)
 
 
-# Start the game --> should be made in mainloop.
-root = tk.Tk()
-root.geometry('600x600')
-root.title('Yahtzee!')
-root.configure(background = BACKGROUND_COLOUR_1)
-app = GUI_game(root)
-root.mainloop()
-
-'''
-def main():
-    
+def gui_game():
     root = tk.Tk()
-    root.geometry('400x600')
-    root.configure(background='darkgreen')
-    app = TEST(root)
+    root.geometry('600x600')
+    root.title('Yahtzee!')
+    root.configure(background = BACKGROUND_COLOUR_1)
+    app = GUI_game(root)
     root.mainloop()
-
-if __name__ == '__main__':
-    main()
-'''

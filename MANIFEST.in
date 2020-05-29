@@ -1,0 +1,2 @@
+include Images/*.png
+include Instruction/*.txt
