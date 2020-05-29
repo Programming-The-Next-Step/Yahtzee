@@ -15,21 +15,27 @@ class Dice:
     current_throw : list
         List of integers of the five dice
         
-    Methods
-    ----------
-    roll(throw)
-        Assigns random integers to current_throw 
     """
     
     def __init__(self):
+        """
+        Constructor of the dice class. 
+        """
         self.current_throw = [randint(1, 6) for i in range(0, 5)]   
         
     def roll(self, throw):
+        """
+        Assigns random integers to current_throw 
+        """
         for j in [int(i) - 1 for i in throw]:
             self.current_throw[j] = randint(1, 6)
     
-    def manual_set(self, a):
-        self.current_throw = a
+    def manual_set(self, specific_throw):
+        """
+        Assigns specific integers to current_throw, which is specific_throw
+        Takes in specific_throw as argument, should be list of five integers
+        """
+        self.current_throw = specific_throw
         
             
 class Category():
@@ -51,19 +57,21 @@ class Category():
     empty: bool
         Keeps track whether the category is empty
     
-        
-    Methods
-    ----------
-    score(current_throw)
-        Assigns a score to each category still to be filled in and possible
-        based on the current throw.
     """
     def __init__(self, name, number = 0):
+        """
+        Constructor of the category class. 
+        """
         self.name = name
         self.number = number
         self.possible_points = 0
         self.empty = True
-    def score(self, current_throw):                
+        
+    def score(self, current_throw): 
+        """
+        Assigns a score to each category still to be filled in and possible
+        based on the current throw.
+        """               
         if self.empty:
             unique, counts = np.unique(current_throw, return_counts = True)
             if self.name in ['Aces', 'Twos', 'Threes', 'Fours', 'Fives', 'Sixes']:
@@ -132,24 +140,14 @@ class Scorecard:
         The bonus which can be assigned, based on score in upper section (>= 63)
     total: int
         Sum of lower and upper section and bonus if applicable
-        
-    Methods
-    ----------
-    print_scorecard(show_possible_score)
-        Prints the scorecard of the player.
-        When show_possible_score is True, then print the possible scores too.
-        If False, then only the category names and scores are printed
-        
-    update_possible_scores(current_throw)
-        Updates the possiblescores attribute according to the current_throw.
-        
-    update_category(index)
-        Updates the category - which is chosen by player - to True.
-        
-    print_final_result()
-        Prints the lower- and uppersection scores with bonus if applicable.    
+    name: str
+        Name of player of the scorecard
+                    
     """
-    def __init__(self):
+    def __init__(self, player_name):
+        """
+        Constructor of the scorecard class. 
+        """
         self.categories = [     Category('Aces', 1),
                                 Category('Twos', 2),
                                 Category('Threes', 3),
@@ -171,26 +169,46 @@ class Scorecard:
         self.lowersection = 0
         self.bonus = 0
         self.total = 0
+        self.name = player_name
+        
     def print_scorecard(self, show_possible_scores):
+        """
+        Prints the scorecard of the player.
+        When show_possible_score is True, then print the possible scores too.
+        If False, then only the category names and scores are printed.
+        
+        """
         if show_possible_scores:
             scores = {'Categories': self.categoryname, 'Scores': self.scores, 'Possible scores': self.possiblescores}   
         else:
             scores = {'Categories': self.categoryname, 'Scores': self.scores}              
         df_scorecard = pd.DataFrame(data = scores, index = range(1, 14))
         print(df_scorecard, "\n")
+        
     def update_possible_scores(self, current_throw):
+        """
+        Updates the possiblescores attribute according to the current_throw.
+        Takes in current_throw parameter which is a list of 5 integers (dice.current_throw)
+        """
         for i, category in enumerate(self.categories):
             category.score(current_throw)
             # keep track of possible records
             self.possiblescores[i] = str(category.possible_points) if category.empty else '' 
+            
     def update_category(self, index):
+        """
+        Updates the category - which is chosen by player - to True.
+        Takes in the index as parameter, which is the index of categories.
+        """
         self.categories[index].empty = False
         self.scores[index] = self.categories[index].possible_points
+        self.uppersection += self.categories[index].possible_points if index < 6 else 0
+        self.lowersection += self.categories[index].possible_points if index >= 6 else 0
+        self.bonus = 35 if self.uppersection >= 63 else 0        
+        self.total = self.lowersection + self.uppersection + self.bonus       
+        
     def print_final_result(self):
-        self.uppersection = np.sum(self.scores[0:6].astype(int))
-        if self.uppersection >= 63:
-             self.bonus = 35
-        self.lowersection = np.sum(self.scores[6:13].astype(int))
-        self.total = self.uppersection + self.bonus + self.lowersection
-         
-        print('You scored:'+ '\n' + 'upper section: ' + str(self.uppersection) + '\n' +' + ', 'bonus score: ' + str(self.bonus)  + '\n' + ' + ' + 'lower section : ' + str(self.lowersection) + '\n' + '----------------------' + '\n' + 'Total: ' + str(self.total))
+        """
+        Prints the lower- and uppersection scores with bonus if applicable.
+        """
+        print('Score of ' + self.name + ' :' + '\n' + 'upper section: ' + str(self.uppersection) + '\n' + ' + bonus score: ' + str(self.bonus)  + '\n' + ' + ' + 'lower section : ' + str(self.lowersection) + '\n' + '----------------------' + '\n' + 'Total: ' + str(self.total) + '\n')
