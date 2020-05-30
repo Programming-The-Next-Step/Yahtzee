@@ -454,10 +454,16 @@ class GUI_game:
         quit_button.pack(side = tk.BOTTOM, fill = tk.X )
         
     def quit(self):
+        """
+        Function to exit the game by destroying the master (root).
+        """
         self.master.destroy()
 
 
 def gui_game():
+    """
+    #Function to start the game in the GUI.
+    """
     root = tk.Tk()
     root.geometry('600x600')
     root.title('Yahtzee!')
