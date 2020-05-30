@@ -205,12 +205,12 @@ class GUI_game:
         self.turn_button.pack(side = tk.LEFT, fill = tk.BOTH, expand = True)
         self.instruction_button = tk.Button(self.choice_frame, text = '?', width = 5, state = 'disabled', command = lambda: self.instruction())
         self.instruction_button.pack(side = tk.LEFT)
-      
+        
+        
         self.players_window = None
         self.player_names_entry = []
-        
         self.init_player_names()
-        #self.update_button_images() # updates the buttons/images
+        
 
     def load_images(self, filenames):
         """
@@ -220,6 +220,32 @@ class GUI_game:
         for i, filename in enumerate(filenames):
             images.append(tk.PhotoImage(file = filename, master = self.master)) 
         return images
+    
+            
+    def init_player_names(self):
+        """
+        Function to initialize the players such that the players can fill in their names.
+        """
+        self.players_window = tk.Toplevel(self.master)
+        self.players_window.geometry('300x300')
+        self.players_window.title('Enter player names')
+        #making sure the player window is presented on the foreground.
+        self.players_window.attributes('-topmost', 'true')
+        self.player_name_new_entry(1)
+        play_button = tk.Button(self.players_window, text = 'Play!', command = lambda: self.start_to_play())
+        play_button.pack(side = tk.BOTTOM, fill = tk.X )
+
+    def instruction(self):
+        """
+        Function that opens an extra window with Yahtzee instructions when the ? button is pressed. 
+        """
+        instruction_text = open(INSTRUCTION_DIRECTORY + r'\Instruction_text.txt')
+        print_instruction_text = instruction_text.read()
+        instruction = tk.Toplevel(self.master)
+        instruction.geometry('1300x530')
+        instruction.title('Instruction')
+        instruction_label = tk.Label(instruction, text = print_instruction_text)
+        instruction_label.pack()
         
     def choose_dice(self, number):
         """
@@ -355,36 +381,11 @@ class GUI_game:
             self.players_turn += 1
             self.next_player()
         #At the end of all the turns, the player can end the game by clicking the turn_button
-        elif self.turn_button.cget('text') == 'End game':
-            self.master.destroy()
+        elif self.turn_button.cget('text') == 'Show final results':
+            self.final_scores()
+            self.disable_buttons([self.turn_button])
         else:
-            self.turn_button.config(text = 'End game')
-    
-    def instruction(self):
-        """
-        Function that opens an extra window with Yahtzee instructions when the ? button is pressed. 
-        """
-        instruction_text = open(INSTRUCTION_DIRECTORY + r'\Instruction_text.txt')
-        print_instruction_text = instruction_text.read()
-        instruction = tk.Toplevel(self.master)
-        instruction.geometry('1300x530')
-        instruction.title('Instruction')
-        instruction_label = tk.Label(instruction, text = print_instruction_text)
-        instruction_label.pack()
-        
-    def init_player_names(self):
-        """
-        Function to initialize the players such that the players can fill in their names.
-        """
-        self.players_window = tk.Toplevel(self.master)
-        self.players_window.geometry('300x300')
-        self.players_window.title('Enter player names')
-        #making sure the player window is presented on the foreground.
-        self.players_window.attributes('-topmost', 'true')
-        self.player_name_new_entry(1)
-        play_button = tk.Button(self.players_window, text = 'Play!', command = lambda: self.start_to_play())
-        play_button.pack(side = tk.BOTTOM, fill = tk.X )
-        
+            self.turn_button.config(text = 'Show final results')      
         
     def player_name_new_entry(self, number):
         """
@@ -426,6 +427,34 @@ class GUI_game:
         self.default_color_buttons(self.categories_buttons)
         self.update_label_scores()
         self.player_name_label.config(text = 'Scorecard of ' + self.currentScorecard.name)
+    
+    def final_scores(self):
+        """
+        Function that opens an extra window with the final results of the game. 
+        """
+        
+        sorted_scorecards = sorted(self.Scorecards, key = c.Scorecard.get_total, reverse = True)        
+        
+        final_results = tk.Toplevel(self.master)
+        final_results.geometry('300x300')
+        final_results.title('And the winner is...')
+        
+        for i, scorecard in enumerate(sorted_scorecards):
+            color = CATEGORY_FILLED_COLOUR if i == 0 else DEFAULT_BUTTON_COLOUR
+            total_score_frame = tk.Frame(final_results)
+            total_score_frame.pack(side = tk.TOP, fill = tk.BOTH)
+            total_score_rank_label = tk.Label(total_score_frame, text = str(i + 1), bg = color)
+            total_score_name_label = tk.Label(total_score_frame, text = str(scorecard.name), bg = color)
+            total_score_total_label = tk.Label(total_score_frame, text = str(scorecard.total), bg = color)
+            total_score_rank_label.pack(side = tk.LEFT, fill = tk.BOTH, expand = True)
+            total_score_name_label.pack(side = tk.LEFT, fill = tk.BOTH, expand = True)
+            total_score_total_label.pack(side = tk.LEFT, fill = tk.BOTH, expand = True)
+            
+        quit_button = tk.Button(final_results, text = 'Quit!', command = lambda: self.quit())
+        quit_button.pack(side = tk.BOTTOM, fill = tk.X )
+        
+    def quit(self):
+        self.master.destroy()
 
 
 def gui_game():
