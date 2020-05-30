@@ -212,3 +212,6 @@ class Scorecard:
         Prints the lower- and uppersection scores with bonus if applicable.
         """
         print('Score of ' + self.name + ' :' + '\n' + 'upper section: ' + str(self.uppersection) + '\n' + ' + bonus score: ' + str(self.bonus)  + '\n' + ' + ' + 'lower section : ' + str(self.lowersection) + '\n' + '----------------------' + '\n' + 'Total: ' + str(self.total) + '\n')
+        
+    def get_total(self):
+        return self.total
