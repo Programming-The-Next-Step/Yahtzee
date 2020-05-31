@@ -108,7 +108,7 @@ class GUI_game:
         self.master = master
         
         # opens and loads in the image files        
-        self.dice_filenames = glob.glob(IMAGES_DIRECTORY + r'\dice*_white.png')
+        self.dice_filenames = glob.glob(os.path.join(IMAGES_DIRECTORY, 'dice*_white.png'))
         self.dice_images = self.load_images(self.dice_filenames)            
         
         #creates all the frames (see structure of frames)
@@ -239,7 +239,7 @@ class GUI_game:
         """
         Function that opens an extra window with Yahtzee instructions when the ? button is pressed. 
         """
-        instruction_text = open(INSTRUCTION_DIRECTORY + r'\Instruction_text.txt')
+        instruction_text = open(os.path.join(INSTRUCTION_DIRECTORY, 'Instruction_text.txt'))
         print_instruction_text = instruction_text.read()
         instruction = tk.Toplevel(self.master)
         instruction.geometry('1300x530')
