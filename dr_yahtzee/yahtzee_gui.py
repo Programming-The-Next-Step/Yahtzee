@@ -108,7 +108,7 @@ class GUI_game:
         self.master = master
         
         # opens and loads in the image files        
-        self.dice_filenames = glob.glob(IMAGES_DIRECTORY + r'\dice*_white.png')
+        self.dice_filenames = glob.glob(os.path.join(IMAGES_DIRECTORY, 'dice*_white.png'))
         self.dice_images = self.load_images(self.dice_filenames)            
         
         #creates all the frames (see structure of frames)
@@ -239,7 +239,7 @@ class GUI_game:
         """
         Function that opens an extra window with Yahtzee instructions when the ? button is pressed. 
         """
-        instruction_text = open(INSTRUCTION_DIRECTORY + r'\Instruction_text.txt')
+        instruction_text = open(os.path.join(INSTRUCTION_DIRECTORY, 'Instruction_text.txt'))
         print_instruction_text = instruction_text.read()
         instruction = tk.Toplevel(self.master)
         instruction.geometry('1300x530')
@@ -454,10 +454,16 @@ class GUI_game:
         quit_button.pack(side = tk.BOTTOM, fill = tk.X )
         
     def quit(self):
+        """
+        Function to exit the game by destroying the master (root).
+        """
         self.master.destroy()
 
 
 def gui_game():
+    """
+    #Function to start the game in the GUI.
+    """
     root = tk.Tk()
     root.geometry('600x600')
     root.title('Yahtzee!')

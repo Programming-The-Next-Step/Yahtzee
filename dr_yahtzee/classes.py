@@ -206,12 +206,16 @@ class Scorecard:
         self.lowersection += self.categories[index].possible_points if index >= 6 else 0
         self.bonus = 35 if self.uppersection >= 63 else 0        
         self.total = self.lowersection + self.uppersection + self.bonus       
-        
+            
+    def get_total(self):
+        """
+        Function that returns the total score of the scorecard.
+        """
+        return self.total
+    
     def print_final_result(self):
         """
         Prints the lower- and uppersection scores with bonus if applicable.
         """
         print('Score of ' + self.name + ' :' + '\n' + 'upper section: ' + str(self.uppersection) + '\n' + ' + bonus score: ' + str(self.bonus)  + '\n' + ' + ' + 'lower section : ' + str(self.lowersection) + '\n' + '----------------------' + '\n' + 'Total: ' + str(self.total) + '\n')
-        
-    def get_total(self):
-        return self.total
+    

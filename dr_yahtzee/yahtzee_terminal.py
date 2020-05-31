@@ -5,7 +5,7 @@ import os
 
 CURRENT_WORKING_DIRECTORY = os.getcwd()
 INSTRUCTION_DIRECTORY = os.path.join(CURRENT_WORKING_DIRECTORY, 'Instruction')
-instruction_text = open(INSTRUCTION_DIRECTORY + r'\Instruction_text.txt')
+INSTRUCTION_FILE = open(os.path.join(INSTRUCTION_DIRECTORY, 'Instruction_text.txt'))
     
 def try_cast_int(number):
     """
@@ -25,7 +25,7 @@ def terminal_game():
     The scorecard of each player is updated in each turn.
         
     """
-    print(instruction_text.read())
+    print(INSTRUCTION_FILE.read())
     
     # ask with how many players you want to play the game, assigns integer to num_players
     while True:
